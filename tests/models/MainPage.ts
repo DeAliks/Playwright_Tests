@@ -134,7 +134,7 @@ export class MainPage {
   }
 
   async checkDataThemeAttributeValue() {
-    await expect.soft(this.page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect.soft(this.page.locator('html')).toHaveAttribute('data-theme', 'light');
   }
 
   async setLightMode() {
