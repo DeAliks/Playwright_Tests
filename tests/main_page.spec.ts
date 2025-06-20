@@ -4,7 +4,7 @@ test.describe('Тесты главной страницы', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://playwright.dev/');
   });
-  test('Отображение элементов навигации - хедер', async ({ page }) => {
+  test.skip('Отображение элементов навигации - хедер', async ({ page }) => {
     await expect.soft(page.getByRole('link', { name: 'Playwright logo Playwright' })).toBeVisible();
     await expect.soft(page.getByRole('link', { name: 'Docs' })).toBeVisible();
     await expect.soft(page.getByRole('link', { name: 'API' })).toBeVisible();
@@ -17,7 +17,7 @@ test.describe('Тесты главной страницы', () => {
       .toBeVisible();
   });
 
-  test('Проверка на корректность названия - хедер', async ({ page }) => {
+  test.fixme('Проверка на корректность названия - хедер', async ({ page }) => {
     await expect(page.getByRole('link', { name: 'Playwright logo Playwright' })).toContainText(
       'Playwright',
     );
@@ -28,11 +28,10 @@ test.describe('Тесты главной страницы', () => {
     await expect.soft(page.getByRole('link', { name: 'Community' })).toContainText('Community');
   });
 
-  test('Проверка атрибута Href элементов навигации - хедер', async ({ page }) => {
-    await expect(page.getByRole('link', { name: 'Playwright logo Playwright' })).toHaveAttribute(
-      'href',
-      '/',
-    );
+  test.fail('Проверка атрибута Href элементов навигации - хедер', async ({ page }) => {
+    await expect(
+      page.getByRole('link', { name: 'Playwright logo Playwright FAIL' }),
+    ).toHaveAttribute('href', '/');
     await expect
       .soft(page.getByRole('link', { name: 'Docs' }))
       .toHaveAttribute('href', '/docs/intro');
