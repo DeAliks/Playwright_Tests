@@ -11,6 +11,8 @@ interface Elements {
   };
 }
 
+const lightsmode = ['light', 'dark'];
+
 const elements: Elements[] = [
   {
     locator: (page: Page): Locator =>
@@ -125,7 +127,17 @@ test.describe('Тесты главной страницы', () => {
   });
 
   test('Проверка переключения лайт мод', async ({ page }) => {
+    await expect.soft(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await page.getByLabel('Switch between dark and light').dblclick();
     await expect.soft(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  });
+
+  lightsmode.forEach((value) => {
+    test(`Проверка стилей активного ${value} мода`, async ({ page }) => {
+      await page.evaluate((value) => {
+        document.querySelector('html')?.setAttribute('data-theme', value);
+      }, value);
+      await expect(page).toHaveScreenshot(`pageWith_${value}Mode.png`);
+    });
   });
 });
